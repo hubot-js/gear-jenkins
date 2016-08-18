@@ -1,0 +1,28 @@
+{
+  "name": "gear-jenkins",
+  "version": "1.0.0",
+  "description": "A Hubot Gear for handle Jenkins tasks",
+  "main": "/src/jenkins.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hubot-js/gear-jenkins.git"
+  },
+  "keywords": [
+    "hubot-gear",
+    "hubot",
+    "slack",
+    "jenkins"
+  ],
+  "author": "robsonbittencourt",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/hubot-js/gear-jenkins/issues"
+  },
+  "homepage": "https://github.com/hubot-js/gear-jenkins#readme",
+  "dependencies": {
+    "jenkins": "^0.17.0"  
+  }
+}
