@@ -4,7 +4,7 @@
   "description": "A Hubot Gear for handle Jenkins tasks",
   "main": "/src/jenkins.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 0"
+    "test": "./node_modules/.bin/mocha --recursive --reporter spec"
   },
   "repository": {
     "type": "git",
@@ -23,6 +23,14 @@
   },
   "homepage": "https://github.com/hubot-js/gear-jenkins#readme",
   "dependencies": {
-    "jenkins": "^0.17.0"  
+    "jenkins": "^0.18.0"  
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "chai-as-promised": "^5.3.0",
+    "sinon": "^1.17.5",
+    "sinon-as-promised": "4.0.2", 
+    "mocha": "^3.0.2",
+    "proxyquire": "^1.7.10"
   }
 }
