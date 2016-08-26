@@ -19,7 +19,8 @@ function start(hubot, message, task, job) {
       if (error.notFound) {
          hubot.postMessage(recipient, `Sorry I could not find the job *${job}*`, {as_user: true});
       } else {
+         hubot.detailedError('Error on call Jenkins', error);
          hubot.postMessage(recipient, `Sorry I could not start the job *${job}*. See the error in the logs.`, {as_user: true});
       }
    });
-};
+};    

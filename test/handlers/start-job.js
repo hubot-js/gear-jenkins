@@ -17,12 +17,14 @@ describe('Call job', function() {
       task = { "options": { "message": "Hello World" } };
 
       hubot = { 
-         _isPrivateConversation: function () {},
          postMessage: function () {},
+         detailedError: function() {},
+         _isPrivateConversation: function () {},
          getRecipient: function() { return message.channel }
       };      
 
       postMessageSpy = sinon.spy(hubot, "postMessage");
+      detailedErrorSpy = sinon.spy(hubot, "detailedError");
    });
 
    describe('with correct parameters', function() {
@@ -74,6 +76,16 @@ describe('Call job', function() {
             
             return startJob.handle(hubot, message, task, ['deploy-job']).then(function() {
                expect(postMessageSpy.calledWith(message.channel, 'Sorry I could not start the job *deploy-job*. See the error in the logs.', {as_user: true})).to.be.true;
+            }); 
+         });
+
+         it("and log error", function() {
+            var error = {};
+            var callJobStub = sinon.stub().rejects(error);
+            var startJob = getStartJob(callJobStub);
+            
+            return startJob.handle(hubot, message, task, ['deploy-job']).then(function() {
+               expect(detailedErrorSpy.calledWith('Error on call Jenkins', error)).to.be.true;
             }); 
          });
 
