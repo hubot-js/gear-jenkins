@@ -1,6 +1,5 @@
 var proxyquire = require('proxyquire').noPreserveCache();
-var chai = require("chai");
-var expect = chai.expect;
+var expect  = require('chai').expect;
 var sinon = require('sinon');
 require('sinon-as-promised');
 
@@ -27,15 +26,15 @@ describe('Call job', function() {
       detailedErrorSpy = sinon.spy(hubot, "detailedError");
    });
 
-   describe('with correct parameters', function() {
-      it("authUrl and job name", function() {
+   describe('with correct parameter', function() {
+      it("job name", function() {
          var callJobStub = sinon.stub().resolves();
          var callJobSpy = sinon.spy(callJobStub);
 
          var startJob = getStartJob(callJobSpy);
          
          return startJob.handle(hubot, message, task, ['deploy-job']).then(function() {
-            expect(callJobSpy.calledWith(authUrl, 'deploy-job')).to.be.true;
+            expect(callJobSpy.calledWith('deploy-job')).to.be.true;
          });
       });
    })   

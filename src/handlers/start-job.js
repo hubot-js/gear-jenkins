@@ -2,8 +2,6 @@
 
 exports.handle = handle;
 
-var authUrl = process.env.JENKINS_AUTH_URL;
-
 var jenkins = require('../../src/jenkins');
 
 function handle(hubot, message, task, params) {
@@ -13,7 +11,7 @@ function handle(hubot, message, task, params) {
 function start(hubot, message, task, job) {
    var recipient = hubot.getRecipient(message);
 
-   return jenkins.callJob(authUrl, job).then(function() {
+   return jenkins.callJob(job).then(function() {
       hubot.postMessage(recipient, task.options.message, {as_user: true});  
    }, function(error) {
       if (error.notFound) {

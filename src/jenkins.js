@@ -2,17 +2,24 @@
 
 exports.callJob = callJob;
 
-function callJob(authUrl, jobName) {
-   var jenkins = buildJenkins(authUrl);
+var authUrl = process.env.JENKINS_AUTH_URL;
+
+function callJob(jobName) {
+   var jenkins = buildJenkins();
 
    return jenkins.job.build(jobName);     
 }
 
-function buildJenkins(authUrl) {
+function buildJenkins() {
    var jenkinsOptions = {
       baseUrl: authUrl,
-      promisify: true      
+      promisify: true,
+      crumbIssuer: useCrumb()   
    }
 
    return require('jenkins')(jenkinsOptions);
+}
+
+function useCrumb() {
+   return process.env.CRUMB_ISSUER === 'true';
 }
