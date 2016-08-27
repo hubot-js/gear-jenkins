@@ -1,6 +1,6 @@
 {
   "name": "gear-jenkins",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A Hubot Gear for handle Jenkins tasks",
   "main": "/src/jenkins.js",
   "scripts": {
