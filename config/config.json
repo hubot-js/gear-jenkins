@@ -1,0 +1,17 @@
+[
+   {
+      "id": 1,
+      "question": "Qual sua url do Jenkins?"
+   },
+
+   {
+      "id": 2,
+      "question": "Você utiliza CRFS no seu Jenkins?",
+      "expectedResponses": ["Sim", "Não"]
+   },
+
+   {
+      "id": 3,
+      "question": "Tudo certo. Jenkins configurado"
+   }
+]
