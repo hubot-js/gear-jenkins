@@ -5,7 +5,7 @@ require('sinon-as-promised');
 
 describe('Call job', function() {
    var hubot;
-   var postMessageSpy;
+   var talkSpy;
    var message;
    var task;
    var authUrl = 'http://jenkins.test.com:8080';
@@ -16,13 +16,13 @@ describe('Call job', function() {
       task = { "options": { "message": "Hello World" } };
 
       hubot = { 
-         postMessage: function () {},
+         talk: function () {},
          detailedError: function() {},
          _isPrivateConversation: function () {},
          getRecipient: function() { return message.channel }
       };      
 
-      postMessageSpy = sinon.spy(hubot, "postMessage");
+      talkSpy = sinon.spy(hubot, "talk");
       detailedErrorSpy = sinon.spy(hubot, "detailedError");
    });
 
@@ -46,7 +46,7 @@ describe('Call job', function() {
          var startJob = getStartJob(callJobStub);
          
          return startJob.handle(hubot, message, task, ['deploy-job']).then(function() {
-            expect(postMessageSpy.calledWith(message.channel, task.options.message, {as_user: true})).to.be.true;
+            expect(talkSpy.calledWith(message, task.options.message)).to.be.true;
          }); 
       });
    
@@ -61,7 +61,7 @@ describe('Call job', function() {
             var startJob = getStartJob(callJobStub);
             
             return startJob.handle(hubot, message, task, ['deploy-job']).then(function() {
-               expect(postMessageSpy.calledWith(message.channel, 'Sorry I could not find the job *deploy-job*', {as_user: true})).to.be.true;
+               expect(talkSpy.calledWith(message, 'Sorry I could not find the job *deploy-job*')).to.be.true;
             }); 
          });
 
@@ -74,7 +74,7 @@ describe('Call job', function() {
             var startJob = getStartJob(callJobStub);
             
             return startJob.handle(hubot, message, task, ['deploy-job']).then(function() {
-               expect(postMessageSpy.calledWith(message.channel, 'Sorry I could not start the job *deploy-job*. See the error in the logs.', {as_user: true})).to.be.true;
+               expect(talkSpy.calledWith(message, 'Sorry I could not start the job *deploy-job*. See the error in the logs.')).to.be.true;
             }); 
          });
 
