@@ -1,44 +1,82 @@
+var proxyquire = require('proxyquire').noPreserveCache();
 var chai = require('chai');
 var expect = chai.expect;
+var sinon = require('sinon');
 
 var chaiAsPromised = require('chai-as-promised');
 chai.use(chaiAsPromised);
 
-var sinon = require('sinon');
-
 var authUrl = 'http://jenkins-test.com/token';
-process.env.JENKINS_AUTH_URL = authUrl;
-
-var jenkins = require('../src/jenkins');
 
 describe('Jenkins call job return', function() {
    it("error because url doesn't exists", function() {
-      var promisse = jenkins.callJob(authUrl, 'test');
+      var config = { url: authUrl };
+
+      var dbStub = getDbStub(config);    
+      
+      var jenkins = getJenkins(dbStub);
+
+      var promisse = jenkins.callJob('test');
+
       return expect(promisse).
          to.be.rejectedWith('Error: jenkins: job.build: getaddrinfo ENOTFOUND jenkins-test.com jenkins-test.com:80');
    });
 
-   it("with crumbIssuer when CRUMB_ISSUER process env is true", function() {
-      process.env.CRUMB_ISSUER = 'true';
-      var promisse = jenkins.callJob(authUrl, 'test');
+   it("error because url is null", function() {
+      var config = { url: null };
+
+      var dbStub = getDbStub(config);    
+      
+      var jenkins = getJenkins(dbStub);
+
+      var promisse = jenkins.callJob('test');
+
+      return expect(promisse).
+         to.be.rejectedWith('Error: baseUrl required');
+   });
+
+   it("with crumbIssuer when useCSRF is true", function() {
+      var config = { url: authUrl, useCSRF: 1 };
+
+      var dbStub = getDbStub(config);    
+      
+      var jenkins = getJenkins(dbStub);    
+
+      var promisse = jenkins.callJob('test');
 
       return expect(promisse).
          to.be.rejectedWith('Error: jenkins: job.build: jenkins: crumbIssuer.get: getaddrinfo ENOTFOUND jenkins-test.com jenkins-test.com:80');
    });
 
    it("without crumbIssuer when CRUMB_ISSUER process env is false", function() {
-      process.env.CRUMB_ISSUER = 'false';
-      var promisse = jenkins.callJob(authUrl, 'test');
+      var config = { url: authUrl, useCSRF: 0 };
 
-      return expect(promisse).
-         to.be.rejectedWith('Error: jenkins: job.build: getaddrinfo ENOTFOUND jenkins-test.com jenkins-test.com:80');
-   });
+      var dbStub = getDbStub(config);    
+      
+      var jenkins = getJenkins(dbStub);     
 
-   it("without crumbIssuer when CRUMB_ISSUER process env does not exists", function() {
-      var promisse = jenkins.callJob(authUrl, 'test');
+      var promisse = jenkins.callJob('test');
 
       return expect(promisse).
          to.be.rejectedWith('Error: jenkins: job.build: getaddrinfo ENOTFOUND jenkins-test.com jenkins-test.com:80');
    });
 
 });
+
+function getDbStub(config) {
+   var db = {
+      get: function() {}
+   };
+   
+   sinon.stub(db, "get").resolves( config );
+
+   var dbStub = function() {
+      return db;
+   } 
+
+   return dbStub;
+}
+
+function getJenkins(dbStub) {
+   return proxyquire('../src/jenkins', { './db': { 'getDb': dbStub } } );
+}
