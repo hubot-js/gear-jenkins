@@ -24,7 +24,8 @@
   },
   "homepage": "https://github.com/hubot-js/gear-jenkins#readme",
   "dependencies": {
-    "jenkins": "^0.18.0"  
+    "jenkins": "^0.18.0",
+    "sqlite": "^2.2.0"  
   },
   "devDependencies": {
     "chai": "^3.5.0",
