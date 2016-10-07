@@ -8,9 +8,7 @@ describe('Call job', function() {
    var talkSpy;
    var message;
    var task;
-   var authUrl = 'http://jenkins.test.com:8080';
-   process.env.JENKINS_AUTH_URL = authUrl;
-
+   
    beforeEach(function() {
       message = { "user": "hubot", "channel": "myChannel" }; 
       task = { "options": { "message": "Hello World" } };
