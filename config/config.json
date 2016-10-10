@@ -1,17 +1,40 @@
 [
    {
-      "id": 1,
-      "question": "Qual sua url do Jenkins?"
+      "speak": "Ok, vou lhe fazer algumas perguntas então. Se precisar de mais detalhes <https://github.com/hubot-js/gear-jenkins#jenkins-url|*clique aqui*>."
+   },
+   
+   {
+      "speak": "_*Você utiliza o Jenkins com autenticação?*_",
+      "expectedResponses": [
+         {
+            "response": "Sim",
+            "iteration": {
+               "speak": "_*Qual é a url do Jenkins?*_ A url deve ter este formato: http://user:authToken@jenkinsUrl. \nSe não quiser fazer esta configuração agora, mantendo o valor atual, digite *pular*.",
+               "handler": "src/configHandler/url-handler" 
+            }   
+         },
+
+         {
+            "response": "Não",
+            "iteration": {
+               "speak": "_*Qual é a url do Jenkins?*_ Simplesmente utilize a url de acesso ao Jenkins. \nSe não quiser fazer esta configuração agora, mantendo o valor atual, digite *pular*.",
+               "handler": "src/configHandler/url-handler"                   
+            }        
+         }
+      ]
    },
 
    {
-      "id": 2,
-      "question": "Você utiliza CRFS no seu Jenkins?",
-      "expectedResponses": ["Sim", "Não"]
+      "speak": "_*Você utiliza CRFS no Jenkins?*_ \nSe não quiser fazer esta configuração agora, mantendo o valor atual, digite *pular*.",
+      "expectedResponses": [
+         { "response": "Sim" },
+         { "response": "Não" },
+         { "response": "pular" }
+      ],
+      "handler": "src/configHandler/csrf-handler"
    },
 
    {
-      "id": 3,
-      "question": "Tudo certo. Jenkins configurado"
+      "speak": "Tudo certo. Jenkins configurado"
    }
 ]
