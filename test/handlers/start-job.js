@@ -5,7 +5,7 @@ require('sinon-as-promised');
 
 describe('Call job', function() {
    var hubot;
-   var talkSpy;
+   var speakSpy;
    var message;
    var task;
    
@@ -14,13 +14,13 @@ describe('Call job', function() {
       task = { "options": { "message": "Hello World" } };
 
       hubot = { 
-         talk: function () {},
+         speak: function () {},
          detailedError: function() {},
          _isPrivateConversation: function () {},
          getRecipient: function() { return message.channel }
       };      
 
-      talkSpy = sinon.spy(hubot, "talk");
+      speakSpy = sinon.spy(hubot, "speak");
       detailedErrorSpy = sinon.spy(hubot, "detailedError");
    });
 
@@ -44,7 +44,7 @@ describe('Call job', function() {
          var startJob = getStartJob(callJobStub);
          
          return startJob.handle(hubot, message, task, ['deploy-job']).then(function() {
-            expect(talkSpy.calledWith(message, task.options.message)).to.be.true;
+            expect(speakSpy.calledWith(message, task.options.message)).to.be.true;
          }); 
       });
    
@@ -59,7 +59,7 @@ describe('Call job', function() {
             var startJob = getStartJob(callJobStub);
             
             return startJob.handle(hubot, message, task, ['deploy-job']).then(function() {
-               expect(talkSpy.calledWith(message, 'Sorry I could not find the job *deploy-job*')).to.be.true;
+               expect(speakSpy.calledWith(message, 'Sorry I could not find the job *deploy-job*')).to.be.true;
             }); 
          });
 
@@ -72,7 +72,7 @@ describe('Call job', function() {
             var startJob = getStartJob(callJobStub);
             
             return startJob.handle(hubot, message, task, ['deploy-job']).then(function() {
-               expect(talkSpy.calledWith(message, 'Sorry I could not start the job *deploy-job*. See the error in the logs.')).to.be.true;
+               expect(speakSpy.calledWith(message, 'Sorry I could not start the job *deploy-job*. See the error in the logs.')).to.be.true;
             }); 
          });
 
