@@ -2,10 +2,11 @@
 
 exports.callJob = callJob;
 
-var db = require('./db').getDb();
+require('./db').startDb();
+var db = require('./db');
 
 function callJob(jobName) {
-   return db.get('SELECT * FROM config').then(function(result) {
+   return db.getDb().get('SELECT * FROM config').then(function(result) {
       var jenkinsOptions = {
          baseUrl: result.url,
          promisify: true,

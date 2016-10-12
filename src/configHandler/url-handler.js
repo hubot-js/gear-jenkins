@@ -3,7 +3,7 @@
 exports.handle = handle;
 
 let Q = require('q');
-var db = require('../../src/db').getDb();
+var db = require('../../src/db');
 var request = require('request-promise');
 
 function handle(awnser) {
@@ -18,7 +18,7 @@ function handle(awnser) {
    let successMessage = 'A url responde, aparentemente está tudo certo. :champagne:';
    let errorMessage = 'Não consegui verificar a url, algo está errado. :disappointed: Confira se a url está correta.';
 
-   db.run('UPDATE config SET url = ?', url);
+   db.getDb().run('UPDATE config SET url = ?', url);
 
    request.get(url)
       .then(function() {

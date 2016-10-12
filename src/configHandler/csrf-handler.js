@@ -3,7 +3,7 @@
 exports.handle = handle;
 
 let Q = require('q');
-var db = require('../../src/db').getDb();
+var db = require('../../src/db');
 
 function handle(awnser) {
    let deferred = Q.defer();
@@ -13,7 +13,7 @@ function handle(awnser) {
       return deferred.promise;
    }
    
-   db.run('UPDATE config SET useCSRF = ?', getUseCSRF(awnser));
+   db.getDb().run('UPDATE config SET useCSRF = ?', getUseCSRF(awnser));
 
    deferred.resolve();
       
