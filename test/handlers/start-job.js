@@ -15,13 +15,11 @@ describe('Call job', function() {
 
       hubot = { 
          speak: function () {},
-         detailedError: function() {},
-         _isPrivateConversation: function () {},
-         getRecipient: function() { return message.channel }
+         logDetailedError: function() {}
       };      
 
       speakSpy = sinon.spy(hubot, "speak");
-      detailedErrorSpy = sinon.spy(hubot, "detailedError");
+      logDetailedErrorSpy = sinon.spy(hubot, "logDetailedError");
    });
 
    describe('with correct parameter', function() {
@@ -82,7 +80,7 @@ describe('Call job', function() {
             var startJob = getStartJob(callJobStub);
             
             return startJob.handle(hubot, message, task, ['deploy-job']).then(function() {
-               expect(detailedErrorSpy.calledWith('Error on call Jenkins', error)).to.be.true;
+               expect(logDetailedErrorSpy.calledWith('Error on call Jenkins', error)).to.be.true;
             }); 
          });
 
