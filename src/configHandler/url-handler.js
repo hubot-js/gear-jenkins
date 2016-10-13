@@ -1,24 +1,24 @@
 'use strict';
 
+const Q = require('q');
+const db = require('../../src/db');
+const request = require('request-promise');
+
 exports.handle = handle;
 
-let Q = require('q');
-var db = require('../../src/db').getDb();
-var request = require('request-promise');
-
 function handle(awnser) {
-   let deferred = Q.defer();
+   const deferred = Q.defer();
 
    if (awnser === 'pular') {
       deferred.resolve();
       return deferred.promise;
    }
 
-   let url = getUrl(awnser);
-   let successMessage = 'A url responde, aparentemente está tudo certo. :champagne:';
-   let errorMessage = 'Não consegui verificar a url, algo está errado. :disappointed: Confira se a url está correta.';
+   const url = getUrl(awnser);
+   const successMessage = 'A url responde, aparentemente está tudo certo. :champagne:';
+   const errorMessage = 'Não consegui verificar a url, algo está errado. :disappointed: Confira se a url está correta.';
 
-   db.run('UPDATE config SET url = ?', url);
+   db.getDb().run('UPDATE config SET url = ?', url);
 
    request.get(url)
       .then(function() {

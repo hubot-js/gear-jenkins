@@ -1,22 +1,24 @@
-var proxyquire = require('proxyquire').noPreserveCache();
-var expect  = require('chai').expect;
-var sinon = require('sinon');
+const proxyquire = require('proxyquire').noPreserveCache();
+const expect  = require('chai').expect;
+const sinon = require('sinon');
 require('sinon-as-promised');
 
 describe('Data base creation', function() {
    it("should open db and run migrations scripts", function() {
-      var openStub = sinon.stub();
-      var migrateStub = sinon.stub().resolves();
+      const database = sinon.stub();
+      const openStub = sinon.stub();
+      const migrateStub = sinon.stub().resolves(database);
       
-      var openSpy = sinon.spy(openStub);
-      var migrateSpy = sinon.spy(migrateStub);
+      const openSpy = sinon.spy(openStub);
+      const migrateSpy = sinon.spy(migrateStub);
 
-      var sqlite =  { 'open': openSpy, 'migrate': migrateSpy };
+      const sqlite = { 'open': openSpy, 'migrate': migrateSpy };
 
-      var db = buildDb(sqlite);
+      const db = buildDb(sqlite);
       openStub.resolves(sqlite);
       
-      db.getDb();
+      db.startDb();
+      
       expect(openSpy.calledWith(process.cwd() + '/node_modules/gear-jenkins/gear-jenkins.sqlite')).to.be.true;
       
       migrateSpy().then(function() {
@@ -25,37 +27,55 @@ describe('Data base creation', function() {
    });
 
    it("do nothing when error occurs on open", function() {
-      var openStub = sinon.stub();
-      var migrateStub = sinon.stub().resolves();
+      const openStub = sinon.stub().rejects();
       
-      var openSpy = sinon.spy(openStub);
-      var migrateSpy = sinon.spy(migrateStub);
+      const openSpy = sinon.spy(openStub);
+      const migrateSpy = sinon.spy();
 
-      var sqlite =  { 'open': openSpy, 'migrate': migrateSpy };
+      const sqlite = { 'open': openSpy, 'migrate': migrateSpy };
 
-      var db = buildDb(sqlite);
-      openStub.rejects();
+      const db = buildDb(sqlite);
       
-      db.getDb();
+      db.startDb();
       
       expect(openSpy.calledWith(process.cwd() + '/node_modules/gear-jenkins/gear-jenkins.sqlite')).to.be.true;
       expect(migrateSpy.calledWithMatch( { migrationsPath: process.cwd() + '/node_modules/gear-jenkins/migrations' } )).to.be.false;
    }); 
 
    it("do nothing when error occurs on migration", function() {
-      var openStub = sinon.stub();
-      var migrateStub = sinon.stub().rejects();
+      const openStub = sinon.stub();
+      const migrateStub = sinon.stub().rejects();
       
-      var openSpy = sinon.spy(openStub);
-      var migrateSpy = sinon.spy(migrateStub);
+      const openSpy = sinon.spy(openStub);
+      const migrateSpy = sinon.spy(migrateStub);
 
-      var sqlite =  { 'open': openSpy, 'migrate': migrateSpy };
+      const sqlite = { 'open': openSpy, 'migrate': migrateSpy };
 
-      var db = buildDb(sqlite);
+      const db = buildDb(sqlite);
       openStub.resolves(sqlite);
       
-      db.getDb();
+      db.startDb();
    });   
+});
+
+describe('Get data base', function() {
+   it("when call getDb", function() {
+      const database = sinon.stub();
+      const openStub = sinon.stub();
+      const migrateStub = sinon.stub().resolves(database);
+      
+      const openSpy = sinon.spy(openStub);
+      const migrateSpy = sinon.spy(migrateStub);
+
+      const sqlite = { 'open': openSpy, 'migrate': migrateSpy };
+
+      const db = buildDb(sqlite);
+      openStub.resolves(sqlite);
+      
+      return db.startDb().then(function() {
+         expect(db.getDb()).to.be.deep.equal(database);
+      });
+   });
 });
 
 function buildDb(sqlite) {

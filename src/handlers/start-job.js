@@ -1,8 +1,8 @@
 'use strict';
 
-exports.handle = handle;
+const jenkins = require('../../src/jenkins');
 
-var jenkins = require('../../src/jenkins');
+exports.handle = handle;
 
 function handle(hubot, message, task, params) {
    return start(hubot, message, task, params[0]);
@@ -10,13 +10,13 @@ function handle(hubot, message, task, params) {
 
 function start(hubot, message, task, job) {
    return jenkins.callJob(job).then(function() {
-      hubot.talk(message, task.options.message);  
+      hubot.speak(message, task.options.message);  
    }, function(error) {
       if (error.notFound) {
-         hubot.talk(message, `Sorry I could not find the job *${job}*`);
+         hubot.speak(message, `Sorry I could not find the job *${job}*`);
       } else {
-         hubot.detailedError('Error on call Jenkins', error);
-         hubot.talk(message, `Sorry I could not start the job *${job}*. See the error in the logs.`);
+         hubot.logDetailedError('Error on call Jenkins', error);
+         hubot.speak(message, `Sorry I could not start the job *${job}*. See the error in the logs.`);
       }
    });
 };    
