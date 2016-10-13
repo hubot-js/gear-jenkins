@@ -1,17 +1,17 @@
 'use strict';
 
-let db = require('sqlite');
-let path = require('path');
-
 exports.startDb = startDb;
 exports.getDb = getDb;
 
-var database;
+const db = require('sqlite');
+const path = require('path');
+
+let database;
 
 function startDb() {
-   let gearPath = path.resolve(process.cwd(), 'node_modules/gear-jenkins/');
-   let dbFile = gearPath + '/gear-jenkins.sqlite';
-   let migrations = gearPath + '/migrations';
+   const gearPath = path.resolve(process.cwd(), 'node_modules/gear-jenkins/');
+   const dbFile = gearPath + '/gear-jenkins.sqlite';
+   const migrations = gearPath + '/migrations';
 
    function open(dbFile) {
       return db.open(dbFile);

@@ -1,8 +1,8 @@
 'use strict';
 
-exports.handle = handle;
+const jenkins = require('../../src/jenkins');
 
-var jenkins = require('../../src/jenkins');
+exports.handle = handle;
 
 function handle(hubot, message, task, params) {
    return start(hubot, message, task, params[0]);

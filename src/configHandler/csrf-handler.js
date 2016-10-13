@@ -1,12 +1,12 @@
 'use strict';
 
+const Q = require('q');
+const db = require('../../src/db');
+
 exports.handle = handle;
 
-let Q = require('q');
-var db = require('../../src/db');
-
 function handle(awnser) {
-   let deferred = Q.defer();
+   const deferred = Q.defer();
 
    if (awnser === 'pular') {
       deferred.resolve();
