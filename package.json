@@ -4,7 +4,7 @@
   "description": "A Hubot Gear for handle Jenkins tasks",
   "main": "/src/jenkins.js",
   "scripts": {
-    "test": "istanbul cover _mocha -- --recursive --reporter spec",
+    "test": "istanbul cover --include-all-sources _mocha -- --recursive --reporter spec",
     "coveralls": "cat ./coverage/lcov.info | coveralls"
   },
   "repository": {
