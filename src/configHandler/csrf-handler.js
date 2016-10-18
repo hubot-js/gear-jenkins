@@ -6,20 +6,20 @@ const db = require('../../src/db');
 exports.handle = handle;
 
 function handle(awnser) {
-   const deferred = Q.defer();
+  const deferred = Q.defer();
 
-   if (awnser === 'pular') {
-      deferred.resolve();
-      return deferred.promise;
-   }
-   
-   db.getDb().run('UPDATE config SET useCSRF = ?', getUseCSRF(awnser));
+  if (awnser === 'pular') {
+    deferred.resolve();
+    return deferred.promise;
+  }
 
-   deferred.resolve();
-      
-   return deferred.promise;
+  db.getDb().run('UPDATE config SET useCSRF = ?', getUseCSRF(awnser));
+
+  deferred.resolve();
+
+  return deferred.promise;
 }
 
 function getUseCSRF(awnser) {
-   return awnser === 'Sim';
+  return awnser === 'Sim';
 }
