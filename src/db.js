@@ -3,33 +3,34 @@
 exports.startDb = startDb;
 exports.getDb = getDb;
 
-const db = require('sqlite');
+const sqlite = require('sqlite');
 const path = require('path');
 
 let database;
 
 function startDb() {
-   const gearPath = path.resolve(process.cwd(), 'node_modules/gear-jenkins/');
-   const dbFile = gearPath + '/gear-jenkins.sqlite';
-   const migrations = gearPath + '/migrations';
+  return open()
+        .then(migrate)
+        .catch(() => { }); // do nothing
+}
 
-   function open(dbFile) {
-      return db.open(dbFile);
-   }
+function open() {
+  const dbFile = `${gearPath()}/gear-jenkins.sqlite`;
 
-   function migrate(db) {
-      return db.migrate({migrationsPath: migrations}).then(function(result) {
-         database = result;
-      });
-   }
-   
-   return open(dbFile)
-      .then(migrate)
-      .catch(function() {
-         //do nothing
-      });
+  return sqlite.open(dbFile);
+}
+
+function migrate(sqliteDb) {
+  const migrations = `${gearPath()}/migrations`;
+
+  return sqliteDb.migrate({ migrationsPath: migrations })
+           .then((result) => { database = result; });
 }
 
 function getDb() {
-   return database;
+  return database;
+}
+
+function gearPath() {
+  return path.resolve(process.cwd(), 'node_modules/gear-jenkins/');
 }
