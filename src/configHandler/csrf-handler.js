@@ -13,7 +13,7 @@ function handle(awnser) {
     return deferred.promise;
   }
 
-  db.getDb().run('UPDATE config SET useCSRF = ?', getUseCSRF(awnser));
+  db.getDb().then((database) => database.run('UPDATE config SET useCSRF = ?', getUseCSRF(awnser)));
 
   deferred.resolve();
 

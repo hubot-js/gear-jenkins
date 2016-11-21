@@ -1,12 +1,19 @@
 'use strict';
 
-exports.startDb = startDb;
 exports.getDb = getDb;
 
 const sqlite = require('sqlite');
 const path = require('path');
 
 let database;
+
+function getDb() {
+  if (database) {
+    return Promise.resolve(database);
+  }
+
+  return startDb();
+}
 
 function startDb() {
   return open()
@@ -24,11 +31,10 @@ function migrate(sqliteDb) {
   const migrations = `${gearPath()}/migrations`;
 
   return sqliteDb.migrate({ migrationsPath: migrations })
-           .then((result) => { database = result; });
-}
-
-function getDb() {
-  return database;
+           .then((result) => { 
+             database = result;
+             return database;
+           });
 }
 
 function gearPath() {
