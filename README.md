@@ -35,10 +35,6 @@ If you use Jenkins without security (authentication) the authorization link is s
 
 If you use the Jenkins authentication, you need to find your access token. It can be obtained from `yourJenkinsUrl/me/configure`. See more details [here](https://wiki.jenkins-ci.org/display/JENKINS/Authenticating+scripted+clients). In this case your authorization link should be in this format: `http://your_user:your_token@your_jenkins_url`
 
-### CSRF Protection
-
-If you use the Jenkins secure option ["Prevent Cross Site Request Forgery exploits"](https://wiki.jenkins-ci.org/display/JENKINS/Remote+access+API) you should inform this to the hubot.js. By default this configuration is false.
-
 ## Usage
 
 When hubot.js starts you can call Jenkins of jobs writing the following sentence. Replace "my-deploy" with the name of your job. 
