@@ -84,6 +84,26 @@ describe('Get data base', () => {
   });
 });
 
+describe('Get opened data base', () => {
+  it('when already exist a opened database', () => {
+    const database = sinon.stub();
+    const openStub = sinon.stub();
+    const migrateStub = sinon.stub().resolves(database);
+
+    const openSpy = sinon.spy(openStub);
+    const migrateSpy = sinon.spy(migrateStub);
+
+    const sqlite = { open: openSpy, migrate: migrateSpy };
+
+    const db = buildDb(sqlite);
+    openStub.resolves(sqlite);
+
+    return db.getDb().then(() => db.getDb()).then(() => {
+      expect(openSpy.calledOnce).to.be.true;
+    });
+  });
+});
+
 function buildDb(sqlite) {
   return proxyquire('../src/db', { sqlite });
 }

@@ -13,38 +13,26 @@ chai.use(chaiAsPromised);
 
 const authUrl = 'http://jenkins-test.com/token';
 
-describe('Jenkins call job return', () => {
-  it("error because url doesn't exists", () => {
+describe('Jenkins call job', () => {
+  it('with the the correct job name', () => {
     const config = { url: authUrl };
 
     const dbStub = getDbStub(config);
+    const buildStub = sinon.stub().resolves();
+    const buildSpy = sinon.spy(buildStub);
+    const jobStub = { build: buildSpy };
+    const infoStub = sinon.stub().resolves({ useCrumbs: true });
 
-    const jenkins = getJenkins(dbStub);
+    const jenkins = getJenkins(dbStub, jobStub, infoStub);
 
-    const promisse = jenkins.callJob('test');
-
-    return expect(promisse)
-         .to.be.rejectedWith('Error: jenkins: info: getaddrinfo ENOTFOUND jenkins-test.com jenkins-test.com:80');
-  });
-
-  it('error because url is null', () => {
-    const config = { url: null };
-
-    const dbStub = getDbStub(config);
-
-    const jenkins = getJenkins(dbStub);
-
-    const promisse = jenkins.callJob('test');
-
-    return expect(promisse)
-         .to.be.rejectedWith('Error: baseUrl required');
+    return jenkins.callJob('build-test').then(() => {
+      expect(buildSpy.calledWith('build-test')).to.be.true;
+    });
   });
 });
 
 function getDbStub(config) {
-  const db = {
-    get() {}
-  };
+  const db = { get() {} };
 
   sinon.stub(db, 'get').resolves(config);
 
@@ -55,6 +43,16 @@ function getDbStub(config) {
   return dbStub;
 }
 
-function getJenkins(dbStub) {
-  return proxyquire('../src/jenkins', { './db': { getDb: dbStub } });
+function getJenkins(dbStub, jobStub, infoStub) {
+  function jenkinsStub() {
+    return {
+      job: jobStub,
+      info: infoStub
+    };
+  }
+
+  return proxyquire('../src/jenkins', {
+    './db': { getDb: dbStub },
+    jenkins: jenkinsStub
+  });
 }
