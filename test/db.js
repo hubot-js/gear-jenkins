@@ -21,7 +21,7 @@ describe('Data base creation', () => {
     const db = buildDb(sqlite);
     openStub.resolves(sqlite);
 
-    db.startDb();
+    db.getDb();
 
     expect(openSpy.calledWith(`${process.cwd()}/node_modules/gear-jenkins/gear-jenkins.sqlite`)).to.be.true;
 
@@ -41,7 +41,7 @@ describe('Data base creation', () => {
 
     const db = buildDb(sqlite);
 
-    db.startDb();
+    db.getDb();
 
     expect(openSpy.calledWith(`${process.cwd()}/node_modules/gear-jenkins/gear-jenkins.sqlite`)).to.be.true;
     expect(migrateSpy.calledWithMatch(
@@ -60,7 +60,7 @@ describe('Data base creation', () => {
     const db = buildDb(sqlite);
     openStub.resolves(sqlite);
 
-    db.startDb();
+    db.getDb();
   });
 });
 
@@ -78,8 +78,8 @@ describe('Get data base', () => {
     const db = buildDb(sqlite);
     openStub.resolves(sqlite);
 
-    return db.startDb().then(() => {
-      expect(db.getDb()).to.be.deep.equal(database);
+    return db.getDb().then((result) => {
+      expect(result).to.be.deep.equal(database);
     });
   });
 });

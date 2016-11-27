@@ -18,7 +18,7 @@ function handle(awnser) {
   const successMessage = 'A url responde, aparentemente está tudo certo. :champagne:';
   const errorMessage = 'Não consegui verificar a url, algo está errado. :disappointed: Confira se a url está correta.';
 
-  db.getDb().then((database) => database.run('UPDATE config SET url = ?', url));
+  db.getDb().then(database => database.run('UPDATE config SET url = ?', url));
 
   request.get(url)
          .then(() => deferred.resolve(successMessage))

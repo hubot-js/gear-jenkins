@@ -24,7 +24,7 @@ describe('Jenkins call job return', () => {
     const promisse = jenkins.callJob('test');
 
     return expect(promisse)
-         .to.be.rejectedWith('Error: jenkins: job.build: getaddrinfo ENOTFOUND jenkins-test.com jenkins-test.com:80');
+         .to.be.rejectedWith('Error: jenkins: info: getaddrinfo ENOTFOUND jenkins-test.com jenkins-test.com:80');
   });
 
   it('error because url is null', () => {
@@ -39,33 +39,6 @@ describe('Jenkins call job return', () => {
     return expect(promisse)
          .to.be.rejectedWith('Error: baseUrl required');
   });
-
-  it('with crumbIssuer when useCSRF is true', () => {
-    const config = { url: authUrl, useCSRF: 1 };
-
-    const dbStub = getDbStub(config);
-
-    const jenkins = getJenkins(dbStub);
-
-    const promisse = jenkins.callJob('test');
-
-    return expect(promisse)
-         .to.be.rejectedWith('Error: jenkins: job.build: jenkins: crumbIssuer.get: getaddrinfo' +
-                             ' ENOTFOUND jenkins-test.com jenkins-test.com:80');
-  });
-
-  it('without crumbIssuer when CRUMB_ISSUER process env is false', () => {
-    const config = { url: authUrl, useCSRF: 0 };
-
-    const dbStub = getDbStub(config);
-
-    const jenkins = getJenkins(dbStub);
-
-    const promisse = jenkins.callJob('test');
-
-    return expect(promisse)
-         .to.be.rejectedWith('Error: jenkins: job.build: getaddrinfo ENOTFOUND jenkins-test.com jenkins-test.com:80');
-  });
 });
 
 function getDbStub(config) {
@@ -76,7 +49,7 @@ function getDbStub(config) {
   sinon.stub(db, 'get').resolves(config);
 
   const dbStub = function buildDbStub() {
-    return db;
+    return Promise.resolve(db);
   };
 
   return dbStub;

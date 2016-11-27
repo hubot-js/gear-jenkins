@@ -31,7 +31,7 @@ function migrate(sqliteDb) {
   const migrations = `${gearPath()}/migrations`;
 
   return sqliteDb.migrate({ migrationsPath: migrations })
-           .then((result) => { 
+           .then((result) => {
              database = result;
              return database;
            });

@@ -19,7 +19,7 @@ describe('Handle with url configuration', () => {
     const runStub = sinon.stub().resolves();
     runSpy = sinon.spy(runStub);
     const db = { run: runSpy };
-    dbStub = function getDbStub() { return db; };
+    dbStub = function getDbStub() { return Promise.resolve(db); };
     requestStub = sinon.stub().resolves();
   });
 
