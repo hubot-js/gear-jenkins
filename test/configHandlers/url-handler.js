@@ -45,8 +45,7 @@ describe('Handle with url configuration', () => {
 
   describe('Verify informed url', () => {
     it('and return error message when url do not respond', () => {
-      const errorMessage = 'Não consegui verificar a url, algo está errado.' +
-                           ' :disappointed: Confira se a url está correta.';
+      const errorMessage = 'I could not check the url. Something is wrong. :disappointed: Check if the url is correct.';
 
       requestStub = sinon.stub().rejects(errorMessage);
 
@@ -58,7 +57,7 @@ describe('Handle with url configuration', () => {
     });
 
     it('and return success message when url respond', () => {
-      const successMessage = 'A url responde, aparentemente está tudo certo. :champagne:';
+      const successMessage = 'Url responds. Apparently everything is alright. :champagne:';
       requestStub = sinon.stub().resolves(successMessage);
 
       const urlHandler = getUrlHandler(dbStub, requestStub);
@@ -73,7 +72,7 @@ describe('Handle with url configuration', () => {
     it('when get skip word and do not save config', () => {
       const csrfHandler = getUrlHandler(dbStub, requestStub);
 
-      const promise = csrfHandler.handle('pular').then(() => {
+      const promise = csrfHandler.handle('skip').then(() => {
         expect(runSpy.called).to.be.false;
       });
 

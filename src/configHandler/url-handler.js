@@ -9,14 +9,14 @@ exports.handle = handle;
 function handle(awnser) {
   const deferred = Q.defer();
 
-  if (awnser === 'pular') {
+  if (awnser === 'skip') {
     deferred.resolve();
     return deferred.promise;
   }
 
   const url = getUrl(awnser);
-  const successMessage = 'A url responde, aparentemente está tudo certo. :champagne:';
-  const errorMessage = 'Não consegui verificar a url, algo está errado. :disappointed: Confira se a url está correta.';
+  const successMessage = 'Url responds. Apparently everything is alright. :champagne:';
+  const errorMessage = 'I could not check the url. Something is wrong. :disappointed: Check if the url is correct.';
 
   db.getDb().then(database => database.run('UPDATE config SET url = ?', url));
 
