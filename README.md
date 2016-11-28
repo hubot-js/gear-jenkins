@@ -5,7 +5,7 @@
 
 This is a gear to add to [hubot.js](https://github.com/hubot-js/hubot.js) the ability to interact with [Jenkins](https://jenkins.io/). If you do not know the hubot.js or do not know what they are gears like this [click here](https://github.com/hubot-js/hubot.js/blob/master/README.md) for more details.
 
-![start-deploy-gif](https://s10.postimg.org/jl5ptldnt/hubot_start_deploy2.gif)
+![start-job](media/start-job.gif)
 
 ## Starting
 
@@ -14,7 +14,7 @@ To use this gear you must first activate it with the command:
 ```
 activate jenkins
 ```
-//gif
+![activate](media/activate-gear.gif)
 
 ## Configurations
 
@@ -23,7 +23,7 @@ Some settings are required. They can be made by Slack using the following comman
 ```
 configure jenkins
 ```
-//gif
+![configure](media/configure-gear.gif)
 
 These settings are stored, so you just need to do them once. But if necessary can make them again.
 
@@ -43,7 +43,7 @@ When hubot.js starts you can call Jenkins of jobs writing the following sentence
 hubot start job my-deploy
 ```
 
-![start-deploy](https://s9.postimg.org/g9dt1se9b/hubot_job.png)
+![start-job](media/start-job.png)
 
 ## Development setup
 - Fork and clone this project
