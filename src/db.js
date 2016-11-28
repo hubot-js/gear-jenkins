@@ -1,28 +1,42 @@
 'use strict';
 
-let db = require('sqlite');
-let path = require('path');
-
 exports.getDb = getDb;
 
+const sqlite = require('sqlite');
+const path = require('path');
+
+let database;
+
 function getDb() {
-   let gearPath = path.resolve(process.cwd(), 'node_modules/gear-jenkins/');
-   let dbFile = gearPath + '/gear-jenkins.sqlite';
-   let migrations = gearPath + '/migrations';
+  if (database) {
+    return Promise.resolve(database);
+  }
 
-   function open(dbFile) {
-      return db.open(dbFile);
-   }
+  return startDb();
+}
 
-   function migrate(db) {
-      return db.migrate({migrationsPath: migrations});
-   }
-   
-   open(dbFile)
-      .then(migrate)
-      .catch(function() {
-         //do nothing
-      }) 
+function startDb() {
+  return open()
+        .then(migrate)
+        .catch(() => { }); // do nothing
+}
 
-   return db; 
+function open() {
+  const dbFile = `${gearPath()}/gear-jenkins.sqlite`;
+
+  return sqlite.open(dbFile);
+}
+
+function migrate(sqliteDb) {
+  const migrations = `${gearPath()}/migrations`;
+
+  return sqliteDb.migrate({ migrationsPath: migrations })
+           .then((result) => {
+             database = result;
+             return database;
+           });
+}
+
+function gearPath() {
+  return path.resolve(process.cwd(), 'node_modules/gear-jenkins/');
 }

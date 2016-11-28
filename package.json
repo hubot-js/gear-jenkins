@@ -4,8 +4,9 @@
   "description": "A Hubot Gear for handle Jenkins tasks",
   "main": "/src/jenkins.js",
   "scripts": {
-    "test": "istanbul cover _mocha -- --recursive --reporter spec",
-    "coveralls": "cat ./coverage/lcov.info | coveralls"
+    "test": "istanbul cover --include-all-sources _mocha -- --recursive --reporter spec",
+    "coveralls": "cat ./coverage/lcov.info | coveralls",
+    "lint": "eslint ."
   },
   "repository": {
     "type": "git",
@@ -25,7 +26,9 @@
   "homepage": "https://github.com/hubot-js/gear-jenkins#readme",
   "dependencies": {
     "jenkins": "^0.18.0",
-    "sqlite": "^2.2.0"  
+    "sqlite": "^2.2.0",
+    "q": "^1.4.1",
+    "request-promise": "^4.1.1"  
   },
   "devDependencies": {
     "chai": "^3.5.0",
@@ -35,6 +38,8 @@
     "mocha": "^3.0.2",
     "proxyquire": "^1.7.10",
     "istanbul": "^0.4.4",
-    "coveralls": "^2.11.12"
+    "coveralls": "^2.11.12",
+    "eslint": "^3.8.0",
+    "eslint-config-hubot-js": "^1.0.2"
   }
 }
