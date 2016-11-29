@@ -1,6 +1,8 @@
-# [v2.0.0](https://github.com/hubot-js/gear-jenkins/releases/tag/2.0.0) (2016-)
+# [v2.0.0](https://github.com/hubot-js/gear-jenkins/releases/tag/2.0.0) (2016-11-29)
 
 ### Features
+
+[Project](https://github.com/hubot-js/gear-jenkins/projects/1)
 
 * Gear Jenkins is now configurable by the Slack
 
