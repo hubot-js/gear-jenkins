@@ -1,6 +1,6 @@
 {
   "name": "gear-jenkins",
-  "version": "1.0.1",
+  "version": "2.0.0",
   "description": "A Hubot Gear for handle Jenkins tasks",
   "main": "/src/jenkins.js",
   "scripts": {
@@ -25,21 +25,21 @@
   },
   "homepage": "https://github.com/hubot-js/gear-jenkins#readme",
   "dependencies": {
-    "jenkins": "^0.18.0",
-    "sqlite": "^2.2.0",
+    "jenkins": "^0.20.0",
+    "sqlite": "^2.2.3",
     "q": "^1.4.1",
     "request-promise": "^4.1.1"  
   },
   "devDependencies": {
     "chai": "^3.5.0",
-    "chai-as-promised": "^5.3.0",
-    "sinon": "^1.17.5",
+    "chai-as-promised": "^6.0.0",
+    "sinon": "^1.17.6",
     "sinon-as-promised": "4.0.2", 
-    "mocha": "^3.0.2",
+    "mocha": "^3.2.0",
     "proxyquire": "^1.7.10",
-    "istanbul": "^0.4.4",
-    "coveralls": "^2.11.12",
-    "eslint": "^3.8.0",
-    "eslint-config-hubot-js": "^1.0.2"
+    "istanbul": "^0.4.5",
+    "coveralls": "^2.11.15",
+    "eslint": "^3.11.1",
+    "eslint-config-hubot-js": "^1.0.4"
   }
 }
