@@ -1,0 +1,30 @@
+[
+   {
+      "speak": "Okay, I'll ask you some questions. If you need more details <https://github.com/hubot-js/gear-jenkins#configurations|*click here*>."
+   },
+   
+   {
+      "speak": "_*Do you use Jenkins with authentication?*_",
+      "expectedResponses": [
+         {
+            "response": "Yes",
+            "iteration": {
+               "speak": "_*What is the Jenkins url?*_ The url should have this format: http://user:authToken@jenkinsUrl. \nIf you do not want to make this setting now, keeping the current value, type *skip*.",
+               "handler": "src/configHandler/url-handler"
+            }   
+         },
+
+         {
+            "response": "No",
+            "iteration": {
+               "speak": "_*What is the Jenkins url?*_ Just use the Jenkins access url. \nIf you do not want to make this setting now, keeping the current value, type *skip*.",
+               "handler": "src/configHandler/url-handler"                   
+            }        
+         }
+      ]
+   },
+   
+   {
+      "speak": "All right. Jenkins configured."
+   }
+]

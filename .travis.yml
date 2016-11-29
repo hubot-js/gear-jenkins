@@ -1,6 +1,18 @@
 language: node_js
+
 node_js:
-  - "5.11"
+  - 7.1.0
+
+script:
+  - npm run lint
 
 after_success:
-   - 'npm run coveralls'
+  - npm run coveralls
+
+deploy:
+  provider: npm
+  email: robson.luizv@gmail.com
+  api_key:
+    secure: DitKAhj07lrVL6QVjA5jlmtx9wr7aocDYiO3bhdIRMFHSZczKzt0iG9Eqyb0C8e6dLl4E9NUWB/qF+9oIoL/uzTOvk81M4nkFHfs2LsrLse4il5aZWd+aJGzhtUfLa3avYNZ4Ihh1l9oUilTUeip1ytWYgp3PSskQ13mEMrydRp7k7KXzDrnBHnsOPBGFE6ikwop66DylfFEMOZd7tDD63ZpcDF0UM0vLsgVJbUpimxU3/ck8vJGQTpShc0DSFHJM2oke9oqKGMVJxgPk/lwxJmQChE2TXrFlusE21ApZwm9RWaP7j2X7ZaLSXugfiSpu8w6nlyLH2leQ8gDXhIDwOhuWutXuT4I+xVKIjlhjlMXv/lVkeXvdsrlgsuVvhZaP+oxvbcUFSykAj6SU3gIpuPPV4v9SoWw5HbiMWn4eQbl6DssKjZQJuowLgak0BpxTfe2ceRxNrKBcUT4xPzVcueMRL697aqP0VufB4Ql2fUsMBFMt05jeLqIHgIl3OHPU8bwqalr5vahlGg9NxUqOOSj2MkoXJOM04hknu5OS0JMHgqkh+Pukb5Xa/QrQNeyQKGU73Q5PxblIptaM7wFHB2LfktCM0RLN4WANJV+qGSwL5lwSTkogYIDWQc8ZQi5LApiDriDlbO1bPT8GchhCFo6OvHhCQE5VI2Z41QdLFs=
+  on:
+    branch: master

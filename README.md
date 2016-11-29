@@ -5,47 +5,35 @@
 
 This is a gear to add to [hubot.js](https://github.com/hubot-js/hubot.js) the ability to interact with [Jenkins](https://jenkins.io/). If you do not know the hubot.js or do not know what they are gears like this [click here](https://github.com/hubot-js/hubot.js/blob/master/README.md) for more details.
 
-![start-deploy-gif](https://s10.postimg.org/jl5ptldnt/hubot_start_deploy2.gif)
+![start-job](media/start-job.gif)
 
 ## Starting
 
-By using this gear you should inform your Jenkins url to start hubot.js. Something like the example below.
+To use this gear you must first activate it with the command:
 
 ```
-docker run -d -e BOT_API_KEY=your_slack_api_key \
-   -e BOT_NAME=name_of_your_bot \
-   -e JENKINS_AUTH_URL=your_jenkins_auth_url \
-   --restart="unless-stopped" \
-   --name=hubot \
-   robsonbittencourt/hubot.js
+activate jenkins
 ```
+![activate](media/activate-gear.gif)
 
-Examples without using Docker you can find [here](https://github.com/hubot-js/hubot.js/blob/master/README.md).
+## Configurations
 
-## Jenkins url
+Some settings are required. They can be made by Slack using the following command:
+
+```
+configure jenkins
+```
+![configure](media/configure-gear.gif)
+
+These settings are stored, so you just need to do them once. But if necessary can make them again.
+
+Below are the details about each setting:
+
+### Jenkins url
 
 If you use Jenkins without security (authentication) the authorization link is simply the access url. For example: `http://your.jenkins.com:8080`
 
 If you use the Jenkins authentication, you need to find your access token. It can be obtained from `yourJenkinsUrl/me/configure`. See more details [here](https://wiki.jenkins-ci.org/display/JENKINS/Authenticating+scripted+clients). In this case your authorization link should be in this format: `http://your_user:your_token@your_jenkins_url`
-
-After that, you can ask me to do your jobs.
-
-## CSRF Protection
-
-If you use the Jenkins secure option ["Prevent Cross Site Request Forgery exploits"](https://wiki.jenkins-ci.org/display/JENKINS/Remote+access+API) you should pass the CRUMB_ISSUER parameter.
-
-```
-docker run -d -e BOT_API_KEY=your_slack_api_key \
-   -e BOT_NAME=name_of_your_bot \
-   -e JENKINS_AUTH_URL=your_jenkins_auth_url \
-   -e CRUMB_ISSUER=true \
-   --restart="unless-stopped" \
-   --name=hubot \
-   robsonbittencourt/hubot.js
-```
-
-In this case inform the parameter to true is required. If you don't use this option isn't not necessary. By default the parameter it's false.
-
 
 ## Usage
 
@@ -55,7 +43,7 @@ When hubot.js starts you can call Jenkins of jobs writing the following sentence
 hubot start job my-deploy
 ```
 
-![start-deploy](https://s9.postimg.org/g9dt1se9b/hubot_job.png)
+![start-job](media/start-job.png)
 
 ## Development setup
 - Fork and clone this project
@@ -68,4 +56,4 @@ Robson Bittencourt - @rluizv - robson.luizv@gmail.com
 
 Distributed under the MIT license. See [LICENSE](LICENSE) for more information.
 
-https://github.com/robsonbittencourt/gear-jenkins
+https://github.com/hubot-js/gear-jenkins
