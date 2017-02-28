@@ -1,11 +1,11 @@
 [
    {
-      "trigger": "hubot start job $",
+      "trigger": "jenkins:tasks.trigger",
       "handler": "start-job",
       "category": "jenkins",
-      "description": "To start a job use the command next to replacing $ by job name.",
+      "description": "jenkins:tasks.description",
       "options": {
-        "message": "<!channel|channel> Alright. I'll start the job"
+        "message": "jenkins:tasks.options.message"
       }
    }
 ]

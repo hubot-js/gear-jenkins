@@ -15,6 +15,12 @@ describe('Handle with url configuration', () => {
   let dbStub;
   let requestStub;
 
+  const hubot = {
+    i18n() {}
+  };
+
+  const hubotStub = sinon.stub(hubot, 'i18n');
+
   beforeEach(() => {
     const runStub = sinon.stub().resolves();
     runSpy = sinon.spy(runStub);
@@ -28,7 +34,7 @@ describe('Handle with url configuration', () => {
       const urlHandler = getUrlHandler(dbStub, requestStub);
       const url = '<http://www.jenkins.com|www.jenkins.com>';
 
-      return urlHandler.handle(url).then(() => {
+      return urlHandler.handle(hubot, url).then(() => {
         expect(runSpy.calledWithExactly('UPDATE config SET url = ?', 'http://www.jenkins.com')).to.be.true;
       });
     });
@@ -37,7 +43,7 @@ describe('Handle with url configuration', () => {
       const urlHandler = getUrlHandler(dbStub, requestStub);
       const url = '<http://jenkins.com>';
 
-      return urlHandler.handle(url).then(() => {
+      return urlHandler.handle(hubot, url).then(() => {
         expect(runSpy.calledWithExactly('UPDATE config SET url = ?', 'http://jenkins.com')).to.be.true;
       });
     });
@@ -45,24 +51,24 @@ describe('Handle with url configuration', () => {
 
   describe('Verify informed url', () => {
     it('and return error message when url do not respond', () => {
-      const errorMessage = 'I could not check the url. Something is wrong. :disappointed: Check if the url is correct.';
+      const errorMessage = 'jenkins:configuration.url.notResponds';
 
       requestStub = sinon.stub().rejects(errorMessage);
 
       const urlHandler = getUrlHandler(dbStub, requestStub);
 
-      const promise = urlHandler.handle('url');
+      const promise = urlHandler.handle(hubot, 'url');
 
       return expect(promise).to.be.rejectedWith(errorMessage);
     });
 
     it('and return success message when url respond', () => {
-      const successMessage = 'Url responds. Apparently everything is alright. :champagne:';
+      const successMessage = 'jenkins:configuration.url.responds';
       requestStub = sinon.stub().resolves(successMessage);
 
       const urlHandler = getUrlHandler(dbStub, requestStub);
 
-      const promise = urlHandler.handle('url');
+      const promise = urlHandler.handle(hubot, 'url');
 
       return expect(promise).to.be.eventually.equal(successMessage);
     });
@@ -72,7 +78,9 @@ describe('Handle with url configuration', () => {
     it('when get skip word and do not save config', () => {
       const csrfHandler = getUrlHandler(dbStub, requestStub);
 
-      const promise = csrfHandler.handle('skip').then(() => {
+      hubotStub.withArgs('jenkins:configuration.skip').returns('skip');
+
+      const promise = csrfHandler.handle(hubot, 'skip').then(() => {
         expect(runSpy.called).to.be.false;
       });
 

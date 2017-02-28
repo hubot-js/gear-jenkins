@@ -59,7 +59,7 @@ describe('Call job', () => {
         const startJob = getStartJob(callJobStub);
 
         return startJob.handle(hubot, message, task, ['deploy-job']).then(() => {
-          expect(speakSpy.calledWith(message, 'Sorry I could not find the job *deploy-job*')).to.be.true;
+          expect(speakSpy.calledWith(message, 'jenkins:notFoundedJob')).to.be.true;
         });
       });
     });
@@ -70,8 +70,7 @@ describe('Call job', () => {
         const startJob = getStartJob(callJobStub);
 
         return startJob.handle(hubot, message, task, ['deploy-job']).then(() => {
-          expect(speakSpy.calledWith(message,
-                'Sorry I could not start the job *deploy-job*. See the error in the logs.')).to.be.true;
+          expect(speakSpy.calledWith(message, 'jenkins:errorOnStartJob')).to.be.true;
         });
       });
 
@@ -81,7 +80,7 @@ describe('Call job', () => {
         const startJob = getStartJob(callJobStub);
 
         return startJob.handle(hubot, message, task, ['deploy-job']).then(() => {
-          expect(logDetailedErrorSpy.calledWith('Error on call Jenkins', error)).to.be.true;
+          expect(logDetailedErrorSpy.calledWith('jenkins:log.error.onCall', error)).to.be.true;
         });
       });
     });
