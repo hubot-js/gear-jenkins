@@ -26,20 +26,20 @@
   "homepage": "https://github.com/hubot-js/gear-jenkins#readme",
   "dependencies": {
     "jenkins": "^0.20.0",
-    "sqlite": "^2.2.3",
-    "q": "^1.4.1",
-    "request-promise": "^4.1.1"  
+    "sqlite": "^2.8.0",
+    "q": "^2.0.3",
+    "request-promise": "^4.2.1"
   },
   "devDependencies": {
     "chai": "^3.5.0",
     "chai-as-promised": "^6.0.0",
-    "sinon": "^1.17.6",
-    "sinon-as-promised": "4.0.2", 
-    "mocha": "^3.2.0",
-    "proxyquire": "^1.7.10",
+    "sinon": "^1.17.7",
+    "sinon-as-promised": "^4.0.3",
+    "mocha": "^3.4.1",
+    "proxyquire": "^1.8.0",
     "istanbul": "^0.4.5",
-    "coveralls": "^2.11.15",
-    "eslint": "^3.11.1",
+    "coveralls": "^2.13.1",
+    "eslint": "^3.19.0",
     "eslint-config-hubot-js": "^1.0.4"
   }
 }
