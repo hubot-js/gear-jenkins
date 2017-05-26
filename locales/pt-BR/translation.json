@@ -27,7 +27,7 @@
     "description": "Para usar os jobs do Jenkins utilize os seguintes comandos:"
   },
   "tasks": {
-    "trigger": "hubot iniciar job $",
+    "trigger": "iniciar job $",
     "description": "Para iniciar um job use o comando a seguir substituindo $ pelo nome do job.",
     "options": {
       "message": "<!channel|channel> Tudo certo. Eu vou iniciar o job"
