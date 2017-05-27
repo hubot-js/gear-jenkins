@@ -1,6 +1,6 @@
 {
   "name": "gear-jenkins",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "description": "A Hubot Gear for handle Jenkins tasks",
   "main": "/src/jenkins.js",
   "scripts": {
@@ -35,7 +35,7 @@
     "chai-as-promised": "^6.0.0",
     "sinon": "^1.17.7",
     "sinon-as-promised": "^4.0.3",
-    "mocha": "^3.4.1",
+    "mocha": "^3.4.2",
     "proxyquire": "^1.8.0",
     "istanbul": "^0.4.5",
     "coveralls": "^2.13.1",

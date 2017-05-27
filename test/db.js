@@ -3,6 +3,7 @@
 'use strict';
 
 require('sinon-as-promised');
+const path = require('path');
 const sinon = require('sinon');
 const expect = require('chai').expect;
 const proxyquire = require('proxyquire').noPreserveCache();
@@ -23,11 +24,13 @@ describe('Data base creation', () => {
 
     db.getDb();
 
-    expect(openSpy.calledWith(`${process.cwd()}/node_modules/gear-jenkins/gear-jenkins.sqlite`)).to.be.true;
+    const basePath = path.resolve(__dirname, '../');
+
+    expect(openSpy.calledWith(`${basePath}/gear-jenkins.sqlite`)).to.be.true;
 
     migrateSpy().then(() => {
       expect(migrateSpy.calledWithMatch(
-            { migrationsPath: `${process.cwd()}/node_modules/gear-jenkins/migrations` })).to.be.true;
+            { migrationsPath: `${basePath}/migrations` })).to.be.true;
     });
   });
 
@@ -43,9 +46,11 @@ describe('Data base creation', () => {
 
     db.getDb();
 
-    expect(openSpy.calledWith(`${process.cwd()}/node_modules/gear-jenkins/gear-jenkins.sqlite`)).to.be.true;
+    const basePath = path.resolve(__dirname, '../');
+
+    expect(openSpy.calledWith(`${basePath}/gear-jenkins.sqlite`)).to.be.true;
     expect(migrateSpy.calledWithMatch(
-          { migrationsPath: `${process.cwd()}/node_modules/gear-jenkins/migrations` })).to.be.false;
+          { migrationsPath: `${basePath}/migrations` })).to.be.false;
   });
 
   it('do nothing when error occurs on migration', () => {

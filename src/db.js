@@ -2,8 +2,8 @@
 
 exports.getDb = getDb;
 
-const sqlite = require('sqlite');
 const path = require('path');
+const sqlite = require('sqlite');
 
 let database;
 
@@ -38,5 +38,5 @@ function migrate(sqliteDb) {
 }
 
 function gearPath() {
-  return path.resolve(process.cwd(), 'node_modules/gear-jenkins/');
+  return path.resolve(__dirname, '../');
 }
