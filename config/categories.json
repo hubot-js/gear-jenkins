@@ -1,8 +1,8 @@
 [
    {
       "key": "jenkins",
-      "name": "Jenkins Jobs",
-      "description": "To use Jenkins jobs use the following commands:",
+      "name": "jenkins:categories.name",
+      "description": "jenkins:categories.description",
       "visible": true
    }
 ]

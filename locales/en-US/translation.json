@@ -1,0 +1,36 @@
+{
+  "notFoundedJob": "Sorry I could not find the job *{{job}}*",
+  "errorOnStartJob": "Sorry I could not start the job *{{job}}*. See the error in the logs.",
+  "configuration": {
+    "start": "Okay, I'll ask you some questions. If you need more details <https://github.com/hubot-js/gear-jenkins#configurations|*click here*>.",
+    "firstQuestion": "_*Do you use Jenkins with authentication?*_",
+    "url": {
+      "question": {
+        "auth": "_*What is the Jenkins url?*_ The url should have this format: http://user:authToken@jenkinsUrl. \nIf you do not want to make this setting now, keeping the current value, type *skip*.",
+        "noAuth": "_*What is the Jenkins url?*_ Just use the Jenkins access url. \nIf you do not want to make this setting now, keeping the current value, type *skip*."
+      },
+      "responds": "Url responds. Apparently everything is alright. :champagne:",
+      "notResponds": "I could not check the url. Something is wrong. :disappointed: Check if the url is correct."
+    },
+    "skip": "skip", 
+    "allright": "All right. Jenkins configured."
+  },
+  "log": {
+    "error": {
+      "onCall": "Error on call Jenkins"
+    }
+  },
+  "yes": "Yes",
+  "no": "No",
+  "categories": {
+    "name": "Jenkins Jobs",
+    "description": "To use Jenkins jobs use the following commands:"
+  },
+  "tasks": {
+    "trigger": "start job $",
+    "description": "To start a job use the command next to replacing $ by job name.",
+    "options": {
+      "message": "<!channel|channel> Alright. I'll start the job"
+    }
+  }
+}

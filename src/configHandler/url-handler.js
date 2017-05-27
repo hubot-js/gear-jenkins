@@ -6,17 +6,17 @@ const request = require('request-promise');
 
 exports.handle = handle;
 
-function handle(awnser) {
+function handle(hubot, awnser) {
   const deferred = Q.defer();
 
-  if (awnser === 'skip') {
+  if (awnser === hubot.i18n('jenkins:configuration.skip')) {
     deferred.resolve();
     return deferred.promise;
   }
 
   const url = getUrl(awnser);
-  const successMessage = 'Url responds. Apparently everything is alright. :champagne:';
-  const errorMessage = 'I could not check the url. Something is wrong. :disappointed: Check if the url is correct.';
+  const successMessage = 'jenkins:configuration.url.responds';
+  const errorMessage = 'jenkins:configuration.url.notResponds';
 
   db.getDb().then(database => database.run('UPDATE config SET url = ?', url));
 

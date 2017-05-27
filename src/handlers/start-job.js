@@ -13,10 +13,10 @@ function start(hubot, message, task, job) {
     hubot.speak(message, task.options.message);
   }, (error) => {
     if (error.notFound) {
-      hubot.speak(message, `Sorry I could not find the job *${job}*`);
+      hubot.speak(message, 'jenkins:notFoundedJob', { job });
     } else {
-      hubot.logDetailedError('Error on call Jenkins', error);
-      hubot.speak(message, `Sorry I could not start the job *${job}*. See the error in the logs.`);
+      hubot.logDetailedError('jenkins:log.error.onCall', error);
+      hubot.speak(message, 'jenkins:errorOnStartJob', { job });
     }
   });
 }

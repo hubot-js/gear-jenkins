@@ -1,0 +1,36 @@
+{
+  "notFoundedJob": "Desculpe não consegui encontrar o job *{{job}}*",
+  "errorOnStartJob": "Desculpa não consegui iniciar o job *{{job}}*. Veja o erro nos logs.",
+  "configuration": {
+    "start": "Certo, eu vou lhe fazer algumas perguntas. Se você precisar de mais detalhes <https://github.com/hubot-js/gear-jenkins#configurations|*clique aqui*>.",
+    "firstQuestion": "_*Você usa o Jenkins com autenticação?*_",
+    "url": {
+      "question": {
+        "auth": "_*Qual é a sua url do Jenkins?*_ A url deve ter este formato: http://usuario:tokenDeAutenticacao@jenkinsUrl. \nSe você não quiser fazer esta configuração agora, mantendo o valor atual, digite *pular*.",
+        "noAuth": "_*Qual é a sua url do Jenkins?*_ Simplesmente use a sua url de acesso ao Jenkins. \nSe você não quiser fazer esta configuração agora, mantendo o valor atual, digite *pular*."
+      },
+      "responds": "A url responde. Aparentemente está tudo certo. :champagne:",
+      "notResponds": "Eu não consegui verificar a url. Algo está errado. :disappointed: Verifique se a url está correta."
+    },
+    "skip": "pular",
+    "allright": "Tudo certo. Jenkins configurado."
+  },
+  "log": {
+    "error": {
+      "onCall": "Erro ao chamar o Jenkins"
+    }
+  },
+  "yes": "Sim",
+  "no": "Não",
+  "categories": {
+    "name": "Jenkins Jobs",
+    "description": "Para usar os jobs do Jenkins utilize os seguintes comandos:"
+  },
+  "tasks": {
+    "trigger": "iniciar job $",
+    "description": "Para iniciar um job use o comando a seguir substituindo $ pelo nome do job.",
+    "options": {
+      "message": "<!channel|channel> Tudo certo. Eu vou iniciar o job"
+    }
+  }
+}
