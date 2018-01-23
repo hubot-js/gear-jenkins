@@ -22,7 +22,8 @@ function startDb() {
 }
 
 function open() {
-  const dbFile = `${gearPath()}/gear-jenkins.sqlite`;
+  const dbPath = path.join(process.env.HOME, 'hubot.js', 'data');
+  const dbFile = `${dbPath}/gear-jenkins.db`;
 
   return sqlite.open(dbFile);
 }

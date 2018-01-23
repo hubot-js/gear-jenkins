@@ -24,9 +24,9 @@ describe('Data base creation', () => {
 
     db.getDb();
 
-    const basePath = path.resolve(__dirname, '../');
+    const basePath = path.join(process.env.HOME, 'hubot.js', 'data');
 
-    expect(openSpy.calledWith(`${basePath}/gear-jenkins.sqlite`)).to.be.true;
+    expect(openSpy.calledWith(`${basePath}/gear-jenkins.db`)).to.be.true;
 
     migrateSpy().then(() => {
       expect(migrateSpy.calledWithMatch(
@@ -46,9 +46,9 @@ describe('Data base creation', () => {
 
     db.getDb();
 
-    const basePath = path.resolve(__dirname, '../');
+    const basePath = path.join(process.env.HOME, 'hubot.js', 'data');
 
-    expect(openSpy.calledWith(`${basePath}/gear-jenkins.sqlite`)).to.be.true;
+    expect(openSpy.calledWith(`${basePath}/gear-jenkins.db`)).to.be.true;
     expect(migrateSpy.calledWithMatch(
           { migrationsPath: `${basePath}/migrations` })).to.be.false;
   });
